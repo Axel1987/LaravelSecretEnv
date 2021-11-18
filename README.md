@@ -29,16 +29,23 @@ return [
     /*
      * Defines the key that will be used to encrypt / decrypt the credentials.
      * The default is your application key. Be sure to keep this key secret!
+     *
+     * WARNING:: Need to use 1 of key option. Not used options must be 'null' or commented
      */
     'key' => config('app.key'),
+    'key_file' => storage_path('cred.key'),
 
-    'cipher' => config('app.cipher'),,
+    'cipher' => config('app.cipher'),
 
     'editor' => env('EDITOR', 'nano')
-
 ];
 ```
 > NOTE:: Editor application must be installed in Docker image or in your system in pure installation case
+
+Generate key file
+```
+openssl rand -base64 756 > storage/cred.key
+```
 
 ## Usage
 

@@ -6,6 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\ServiceProvider;
+use Exception;
 
 class CredentialsServiceProvider extends ServiceProvider
 {
@@ -52,7 +53,13 @@ class CredentialsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(Credentials::class, function(){
+            if (!$key = config('credentials.key')) {
+                $key = file_get_contents(config('credentials.key_file'));
+            }
 
+            if (!$key) {
+                throw new Exception('Credentials key is not specified');
+            }
             // If the key starts with "base64:", we will need to decode the key before handing
             // it off to the encrypter. Keys may be base-64 encoded for presentation and we
             // want to make sure to convert them back to the raw bytes before encrypting.
