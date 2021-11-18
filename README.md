@@ -3,7 +3,7 @@
 You can install the package via composer:
 
 ```bash
-composer require beyondcode/laravel-credentials
+composer require axel-dzhurko/laravel-secret-env
 ```
 
 The package will automatically register itself.
