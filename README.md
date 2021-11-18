@@ -32,11 +32,26 @@ return [
      */
     'key' => config('app.key'),
 
-    'cipher' => config('app.cipher'),
+    'cipher' => config('app.cipher'),,
+
+    'editor' => env('EDITOR', 'nano')
 
 ];
 ```
+> NOTE:: Editor application must be installed in Docker image or in your system in pure installation case
 
+## Usage
+
+Set secret variable
+
+```bash
+ php artisan credentials:edit
+```
+
+For a use secret in code
+```
+cred('some.var_name')
+```
 
 ## License
 

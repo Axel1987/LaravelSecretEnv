@@ -1,9 +1,9 @@
 <?php
 
-use BeyondCode\Credentials\Credentials;
+use LaravelSecretEnv\Credentials;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-if (! function_exists('credentials')) {
+if (! function_exists('cred')) {
     /**
      * Get a an encrypted value.
      *
@@ -11,7 +11,7 @@ if (! function_exists('credentials')) {
      * @param null $default
      * @return mixed
      */
-    function credentials(string $key, $default = null)
+    function cred(string $key, $default = null)
     {
         $filename = config('credentials.file');
         try {
