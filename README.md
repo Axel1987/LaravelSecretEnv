@@ -14,7 +14,19 @@ You can optionally publish the configuration with:
 php artisan vendor:publish --provider="LaravelSecretEnv\CredentialsServiceProvider" --tag="config"
 ``` 
 
-This is the content of the published config file:
+## Lumen instalation
+
+In `bootstrap/app` need register provider
+```
+$app->register(\LaravelSecretEnv\CredentialsServiceProvider::class);
+```
+
+Publish config file use command
+```
+cp vendor/axel-dzhurko/laravel-secret-env/config/credentials.php config/credentials.php
+```
+
+### This is the content of the published config file:
 
 ```php
 <?php
