@@ -2,11 +2,11 @@
 
 namespace LaravelSecretEnv;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Encryption\Encrypter;
-use Illuminate\Support\ServiceProvider;
 use Exception;
+use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Arr;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class CredentialsServiceProvider extends ServiceProvider
 {
@@ -18,13 +18,13 @@ class CredentialsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/credentials.php' => config_path('credentials.php'),
+            __DIR__ . '/../config/credentials.php' => __DIR__ . '/../../../../config/credentials.php',
         ], 'config');
 
         $this->mergeConfigFrom(__DIR__ . '/../config/credentials.php', 'credentials');
 
         // Update configuration strings
-        if( !app()->configurationIsCached()) {
+        if (method_exists(app(), 'configurationIsCached') && !app()->configurationIsCached()) {
             $this->fixConfig();
         }
     }
@@ -52,9 +52,11 @@ class CredentialsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(Credentials::class, function(){
+        $this->app->bind(Credentials::class, function () {
             if (!$key = config('credentials.key')) {
-                $key = file_get_contents(config('credentials.key_file'));
+                $key = file_exists(config('credentials.key_file'))
+                    ? file_get_contents(config('credentials.key_file'))
+                    : null;
             }
 
             if (!$key) {

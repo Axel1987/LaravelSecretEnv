@@ -5,7 +5,7 @@ return [
     /*
      * Defines the file that will be used to store and retrieve the credentials.
      */
-    'file' => config_path('credentials.php.enc'),
+    'file' => __DIR__ . ('/credentials.php.enc'),
 
     /*
      * Defines the key that will be used to encrypt / decrypt the credentials.
@@ -16,7 +16,10 @@ return [
 //    'key' => config('app.key'),
     'key_file' => storage_path('cred.key'),
 
-    'cipher' => config('app.cipher'),
+    /**
+     * 'AES-128-CBC','AES-256-CBC',AES-128-GCM',AES-256-GCM';
+     */
+    'cipher' => 'AES-256-CBC',
 
     'editor' => env('EDITOR', 'nano')
 ];
