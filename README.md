@@ -54,10 +54,12 @@ return [
 ```
 > NOTE:: Editor application must be installed in Docker image or in your system in pure installation case
 
-Generate key file
+Generate key / key file
 ```
-openssl rand -base64 756 > storage/cred.key
+php artisan credentials:key-generate
 ```
+if you use 'config.key' - you will get a key-string for config
+if you use 'config.key_file' - key file will generate according path in config
 
 ## Usage
 

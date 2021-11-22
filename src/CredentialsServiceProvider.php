@@ -52,10 +52,11 @@ class CredentialsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('command.credentials.key-generate', CredentialsKeyGenerate::class);
         $this->app->bind(Credentials::class, function () {
             if (!$key = config('credentials.key')) {
                 $key = file_exists(config('credentials.key_file'))
-                    ? file_get_contents(config('credentials.key_file'))
+                    ? 'base64:' . file_get_contents(config('credentials.key_file'))
                     : null;
             }
 
@@ -77,7 +78,8 @@ class CredentialsServiceProvider extends ServiceProvider
         $this->app->bind('command.credentials.edit', EditCredentialsCommand::class);
 
         $this->commands([
-            'command.credentials.edit'
+            'command.credentials.edit',
+            'command.credentials.key-generate'
         ]);
     }
 }
